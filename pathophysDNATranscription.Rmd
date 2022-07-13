@@ -1,0 +1,148 @@
+---
+title: "Modeling DNA Transcription"
+author: "Sachleen Tuteja"
+date: "1/31/2022"
+output: pdf_document
+---
+Transcription is the process that allows DNA to 
+be copied into a single stranded molecule termed messenger RNA (mRNA). 
+It can also be described using the copy machine analogy, where information 
+is stored in books and with the aid of a copy machine (enzymes), a duplicate 
+of the book is created.
+
+The first step of transcription, known as initiation, begins with RNA polymerase, 
+an enzyme that binds to a promoter region near the beginning of a gene in the 
+template strand of the DNA. Subsequently, this catalyst builds the mRNA molecule 
+using the complementary base pairs of the DNA strand. It is important to remember 
+that the base pair of adenine (A) in mRNA is uracil (U), not thymine (T). Lastly, 
+in the termination of transcription, the RNA polymerase encounters a stop codon 
+(either UAG, UAA, or UGA) and the mRNA detaches from the DNA to form a separate 
+nucleic acid. 
+
+Both enhancers and repressors play a crucial role in regulating transcription. 
+Enhancers are generally located either upstream or downstream of a gene and serve 
+as binding sequences for the transcription factors discussed in the previous question. 
+When a protein binds to the enhancer region, the shape of the DNA shifts, allowing 
+for an interaction between the RNA polymerase and activators that are already 
+connected to the enhancers. Thus, a nucleotide sequence can be continuously 
+copied with the use of enhancers. 
+
+On the other hand, repressors decrease gene expression after binding to 
+transcription factors with the help of histone deacetylase, which functions 
+to rapidly eliminate acetyl groups from lysine. In turn, this reaction 
+increases the positive charge on histones and strengthens the bond between 
+the histones and DNA, which stops other enzymes from carrying out transcription. 
+
+Below is a model of DNA transcription using Java and RMarkdown:
+    
+    
+    import java util *;
+    
+    //creating a class that executes DNA transcription
+  
+    public class DNATranscription{
+    
+      //instantiating private variables for components in transcription
+        private String tempDNA = "GATCCTGGTAGATCCATC";
+        private String compDNA = "CTAGGACCATCTAGGTAG";
+        private String RNAstrand = "";
+        private boolean DNAhelicase;
+        private boolean RNApoly;
+        private int rate;
+  
+        //setting the variables equal to the user input
+        public DNATranscription(String temp, String comp, booean helicase, boolean poly) {
+               tempDNA = temp;
+               compDNA comp;
+               DNAhelicase = helicase;
+               RNApoly = poly;
+        }
+
+        //checking the presence of DNA helicase and RNA polymerase
+        public boolean beginTranscription(boolean hel, boolean pol) {
+              if (hel == true && poly == true){
+                      return true;
+               }
+               return false;
+        }
+
+        //checking the presence of a DNA double helix
+        public boolean doubleHelix(String str1, String str2) {
+                if (str1 != null && str2 != null){
+                        return true;
+                }
+                return false;
+        }
+
+        //changing the rate of transcription according to transcription factors
+        public double bindingPromoter (String tF){
+              if (tF == "activator"){
+                    rate = (int) ((Math.random() * (0.9 - 0.0)) + 0.0);
+              }
+              else if (tF == "repressor"){
+                    rate = (int)((Math.random() * (2.0 - 1.1)) + 1.1);
+              }
+              return rate;
+        }
+        
+        //transcribing the DNA into mRNA
+        public String createRNAStrand (String dna){
+              for (int i = 0; i < dna.length(); i++){
+                    if (dna[i] == "A"){
+                        RNAstrand += "U";
+                    }
+                    else if (dna[i] == "T"){
+                        RNAstrand += "A";
+                    }
+                    else if (dna[i] == "G"){
+                        RNAstrand += "C";
+                    }
+                    else if (dna[i] == "C"){
+                        RNAstrand += "G";
+                    }
+              }
+              return RNAstrand;
+        }
+        
+        //checking the location of a stop codon to end transcription
+        public boolean endTranscription (String dna){
+              String lastThree = dna.substring(dna.length() - 1) + dna.substring(dna.length() - 2) 
+              + dna.substring(dna.length() - 3);
+              
+              if ((lastThree == "ATC" || lastThree == "ATT" || lastThree == "ACT")){
+                    return true;
+              }
+              return false;
+        }
+        
+        //checking patient data for Huntington's Disease
+        public String checkHuntingtons(String RNAstrand){
+              Scanner input = new Scanner(System.in);
+              System.out.println("Has the patient been screened and diagnosed with Huntington's Disease? (y/n)");
+              String userInput = input.nextLint();
+              
+              if (userInput == "y" || userInput == "Y){
+                    System.out.println("At what age was the patient diagnosed?");
+                    String ageDiag = input.nextLine();
+                    
+                    if (ageDiag <= 20 && ageDiag > 0){
+                          RNAstrand += "CAG" * ((Math.random() * (80 - 60)) + 60);
+                    }
+                    
+                    else if (ageDiag > 20 && ageDiag <= 30){
+                          RNAstrand += "CAG" * ((Math.random() * (60 - 50)) + 50);
+                    }
+                    
+                    else if (ageDiag > 30 && ageDiag <= 40){
+                          RNAstrand += "CAG" * ((Math.random() * (50 - 40)) + 40);
+                    }
+                    
+                    else if (ageDiag > 40){
+                          RNAstrand += "CAG" * ((Math.random() * (40 - 30)) + 30);
+                    }
+              }
+              return RNAStrand;
+        }
+    }
+    
+Contact: Sachleen Tuteja - stuteja@imsa.edu
